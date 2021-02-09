@@ -5,7 +5,7 @@ import { TemplateModule } from './templates/template.module';
 import { TypeormModule } from './typeorm/typeorm.module';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
-import { AADStrategy } from './authentication/aad.strategy';
+import { AADStrategy } from './guards/authentication/aad.strategy';
 
 @Module({
   imports: [
