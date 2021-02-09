@@ -5,9 +5,13 @@ import { AADAuthGaurd } from './guards/authentication/aad-guard.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); //this line initiates the app
-  app.useGlobalGuards(new AADAuthGaurd()); //added authentication guard, more elaborate explanation will ve in the guards folder
+  //added authentication guard, more elaborate explanation will be in the readme in guards folder
+  app.useGlobalGuards(new AADAuthGaurd());
+  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
   app.useGlobalInterceptors(new LoggingInterceptor());
+  //Cross-Origin-resource-sharing must be enabled so that the frontend will be able to ask resourced from the backend
   app.enableCors();
+  //app initiation
   await app.listen(5216);
 }
 bootstrap();
