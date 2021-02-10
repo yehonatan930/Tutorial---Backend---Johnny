@@ -4,6 +4,10 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { assert } from 'console';
 
+/**
+ * this file is responsible for end to end testing, when this is executed it creates and instance of the
+ * app and makes some request to it.
+ */
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
@@ -18,18 +22,20 @@ describe('AppController (e2e)', () => {
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .get('/') //make a request to the app on '/'
+      .expect(200) //what status code to expect
+      .expect('Hello World!'); // what content to expect.
   });
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
-      .get('/templates')
-      .expect(200)
-      .expect([]);
+      .get('/templates') //make request for '/template'
+      .expect(200); //what status code to expect
   });
 
+  /**
+   * test for adding an entity, add an entity than checks if is indeed was added.
+   */
   it('/ (Add Template)', (done) => {
     let id = -1;
     return request(app.getHttpServer())
