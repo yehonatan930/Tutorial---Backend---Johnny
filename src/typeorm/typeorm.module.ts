@@ -1,3 +1,4 @@
+import { Audit } from './../middlewares/audit/audit.model';
 import { TemplateEntity } from './../templates/template.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -11,7 +12,7 @@ export const TypeormModule = TypeOrmModule.forRootAsync({
     username: configService.get<string>('SERVER_USER'),
     password: configService.get<string>('SERVER_PASSWORD'),
     database: configService.get<string>('SERVER_DATABASE'),
-    entities: [TemplateEntity], // here are written all the DB entities
+    entities: [TemplateEntity, Audit], // here are written all the DB entities
     synchronize: false, //where true all entities will be updated according to the models.
     schema: configService.get<string>('SERVER_SCHEMA'),
   }),

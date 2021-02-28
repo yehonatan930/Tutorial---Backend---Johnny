@@ -1,3 +1,5 @@
+import { AuditMiddleware } from './middlewares/audit/audit.middleware';
+import { AuditModule } from './middlewares/audit/audit.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,6 +14,7 @@ import { AADStrategy } from './guards/authentication/aad.strategy';
     ConfigModule.forRoot({ isGlobal: true }), //this import is resolving all the .env params, MUST be done first.
     TypeormModule, //this import get the typeorm configuration, should be before the other modules.
     TemplateModule, //simple Template for example.
+    AuditModule,
   ],
   controllers: [AppController], //built-in controller.
   providers: [
@@ -23,5 +26,6 @@ export class AppModule implements NestModule {
   configure(consumere: MiddlewareConsumer) {
     //logger middleware that is executed for each request before its designated function.
     consumere.apply(LoggerMiddleware).forRoutes('/');
+    consumere.apply(AuditMiddleware).forRoutes('/');
   }
 }
