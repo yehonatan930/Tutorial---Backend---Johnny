@@ -8,10 +8,10 @@ export class AuditMiddleware implements NestMiddleware {
   constructor(private auditService: AuditService) {}
 
   use(req: Request, _res: Response, next: NextFunction) {
-    console.log('Request...');
+    console.log('Audit invoked...');
     const audit: Audit = new Audit();
 
-    // audit.operation = req.path;
+    audit.operation = req.path;
     audit.entity = req.path;
     audit.payload = req.body;
     audit.timestamp = new Date();

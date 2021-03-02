@@ -15,7 +15,7 @@ export class Audit {
   timestamp: Date;
 
   @Column()
-  payload: string;
+  payload?: string;
 
   @Column()
   user: string;
