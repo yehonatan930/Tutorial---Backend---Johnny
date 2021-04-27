@@ -13,7 +13,7 @@ export const TypeormModule = TypeOrmModule.forRootAsync({
     password: configService.get<string>('SERVER_PASSWORD'),
     database: configService.get<string>('SERVER_DATABASE'),
     entities: [TemplateEntity, Audit], // here are written all the DB entities
-    synchronize: true, //where true all entities will be updated according to the models.
+    synchronize: false, //where true all entities will be updated according to the models.
     schema: configService.get<string>('SERVER_SCHEMA'),
   }),
   inject: [ConfigService],

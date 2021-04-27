@@ -28,6 +28,7 @@
     "@nestjs/typeorm": "^7.1.5",
     "@types/passport": "^1.0.5",
     "@types/passport-azure-ad": "^4.0.8",
+    "applicationinsights": "^1.8.10",
     "dotenv": "^8.2.0",
     "joi": "^17.3.0",
     "passport": "^0.4.1",
