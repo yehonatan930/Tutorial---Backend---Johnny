@@ -13,6 +13,7 @@ import { TypeormModule } from './typeorm/typeorm.module';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AADStrategy } from './guards/authentication/aad.strategy';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AADStrategy } from './guards/authentication/aad.strategy';
     TypeormModule, //this import get the typeorm configuration, should be before the other modules.
     TemplateModule, //simple Template for example.
     AuditModule,
+    HealthModule,
   ],
   controllers: [AppController], //built-in controller.
   providers: [
