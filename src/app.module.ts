@@ -14,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AADStrategy } from './guards/authentication/aad.strategy';
 import { HealthModule } from './health/health.module';
+import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
 
 @Module({
   imports: [
@@ -37,5 +38,8 @@ export class AppModule implements NestModule {
       .apply(AuditMiddleware)
       .exclude({ path: '/*', method: RequestMethod.GET })
       .forRoutes('/*');
+    consumere
+      .apply(CsrfCookieMiddleware)
+      .forRoutes('/');
   }
 }

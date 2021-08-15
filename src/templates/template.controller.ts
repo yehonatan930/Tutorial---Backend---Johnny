@@ -32,17 +32,17 @@ export class TemplateController {
    * @param TemplateArg2 the request body must be a json with a field named TemplateArg2
    */
   @Post()
-  @UsePipes(
-    // pipes add a layer of validation/transformation to the data coming from the request
-    // in this example the pipe validates that the data is in specific structure of the the Template
-    // object.
-    new JoiValidationPipe(
-      Joi.object().keys({
-        TemplateArg1: Joi.string().max(20),
-        TemplateArg2: Joi.string().max(20),
-      }),
-    ),
-  )
+  // @UsePipes(
+  //   // pipes add a layer of validation/transformation to the data coming from the request
+  //   // in this example the pipe validates that the data is in specific structure of the the Template
+  //   // object.
+  //   new JoiValidationPipe(
+  //     Joi.object().keys({
+  //       TemplateArg1: Joi.string().max(20),
+  //       TemplateArg2: Joi.string().max(20),
+  //     }),
+  //   ),
+  // )
   addTemplate(
     @Body('TemplateArg1') TemplateArg1: string, //this is how the body parameters are accessed
     @Body('TemplateArg2') TemplateArg2: string, // similiarly there is @Query() and @Params()
@@ -86,7 +86,8 @@ export class TemplateController {
    */
   @Get()
   getAllTemplates() {
-    return this.templatesService.getAllTemplates();
+    const templates=  this.templatesService.getAllTemplates()
+    return templates;
   }
   /**
    * another example if parameter routing.
