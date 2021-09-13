@@ -1,4 +1,4 @@
-import { AuditMiddleware } from './middlewares/audit/audit.middleware';
+import { AuditInterceptor } from './middlewares/audit/audit.middleware';
 import { AuditModule } from './middlewares/audit/audit.module';
 import {
   MiddlewareConsumer,
@@ -15,6 +15,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AADStrategy } from './guards/authentication/aad.strategy';
 import { HealthModule } from './health/health.module';
 import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -28,16 +29,16 @@ import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
   providers: [
     AppService, //buildt-in service
     AADStrategy, //the strategy for the authentication, this part is responsible for azure authentication.
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AuditInterceptor,
+    }
   ],
 })
 export class AppModule implements NestModule {
   configure(consumere: MiddlewareConsumer) {
     //logger middleware that is executed for each request before its designated function.
     consumere.apply(LoggerMiddleware).forRoutes('/*');
-    consumere
-      .apply(AuditMiddleware)
-      .exclude({ path: '/*', method: RequestMethod.GET })
-      .forRoutes('/*');
     consumere
       .apply(CsrfCookieMiddleware)
       .forRoutes('/');
