@@ -8,7 +8,9 @@ import { ConfigService } from '@nestjs/config';
 import { ErrorsInterceptor } from './interceptors/serverErrors.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);   //this line initiates the app
+  const app = await NestFactory.create(AppModule,{
+    logger: ['warn','error']
+  });   //this line initiates the app
   //added authentication guard, more elaborate explanation will be in the readme in guards folder
 
   const configService = app.get(ConfigService);//access to dotenv through this configService

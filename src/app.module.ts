@@ -38,7 +38,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 export class AppModule implements NestModule {
   configure(consumere: MiddlewareConsumer) {
     //logger middleware that is executed for each request before its designated function.
-    consumere.apply(LoggerMiddleware).forRoutes('/*');
+    consumere.apply(LoggerMiddleware).forRoutes('/');
     consumere
       .apply(CsrfCookieMiddleware)
       .forRoutes('/');
