@@ -15,7 +15,8 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AADStrategy } from './guards/authentication/aad.strategy';
 import { HealthModule } from './health/health.module';
 import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -24,6 +25,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     TemplateModule, //simple Template for example.
     AuditModule,
     HealthModule,
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    })
   ],
   controllers: [AppController], //built-in controller.
   providers: [
@@ -32,7 +37,11 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     {
       provide: APP_INTERCEPTOR,
       useClass: AuditInterceptor,
-    }
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule implements NestModule {
