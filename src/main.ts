@@ -6,10 +6,11 @@ import * as csurf from 'csurf';
 import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { ErrorsInterceptor } from './interceptors/serverErrors.interceptor';
+import { HeadersInterceptor } from './interceptors/headers/headers.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
-    logger: ['warn','error']
+    logger: ['warn','error','log']
   });   //this line initiates the app
   //added authentication guard, more elaborate explanation will be in the readme in guards folder
 
@@ -26,7 +27,7 @@ async function bootstrap() {
   app.useGlobalGuards(new AADAuthGaurd(reflector));  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalInterceptors(new ErrorsInterceptor());
-
+  app.useGlobalInterceptors(new HeadersInterceptor());
   app.use(cookieParser());//enable cookis
   app.use(csurf({ cookie: true }));//adds csrf protection
   //app initiation
