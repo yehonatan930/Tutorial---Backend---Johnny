@@ -21,14 +21,17 @@ export class AADStrategy extends PassportStrategy(
         identityMetadata: `https://${click_config.metadata.authority}/${configService.get<string>('CLICK_TENANT_ID')}/${click_config.metadata.version}/${click_config.metadata.discovery}`,
         issuer: `https://${click_config.metadata.authority}/${configService.get<string>('CLICK_TENANT_ID')}/${click_config.metadata.version}`,
         //identityMetadata this should stay the same and not be changed for the authentication to work
-        clientID: configService.get<string>('CLICK_CLIENT_ID'), //here should be written the app's ID,
+        clientID: configService.get<string>('CLICK_CLIENT_ID'), //application id should be written in the dotenv here we use it,
         // Don't change other things, unless you know what you are doing
-        //TODO add explanation about the scope.
+        
         loggingNoPII: false,//prints a lot of things related to login, consider on production to make it false
         validateIssuer: true,
         loggingLevel: 'info',
         allowHttpForRedirectUrl: true,
         scope:  ["access"],
+        //TL:DR - go to app Registration->Expose API->Add Scope, fill the fields, and write the scope you added here.
+        //for reference use Architect Template App in app registration.
+        //if you are stuck, ask צוות תחום דיגיטל
       },
       (token, done) => {
         let currentUser = null;

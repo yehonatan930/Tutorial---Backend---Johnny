@@ -16,7 +16,7 @@ import { AADStrategy } from './guards/authentication/aad.strategy';
 import { HealthModule } from './health/health.module';
 import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+// import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -25,10 +25,10 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
     TemplateModule, //simple Template for example.
     AuditModule,
     HealthModule,
-    ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 10,
-    })
+    // ThrottlerModule.forRoot({
+    //   ttl: 60,
+    //   limit: 10,
+    // })
   ],
   controllers: [AppController], //built-in controller.
   providers: [
@@ -37,16 +37,16 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
     {
       provide: APP_GUARD,
       useClass: AADStrategy,
-      inject: [ConfigService]
+      inject: [ConfigService]//this line is reponsible to make dotenv variables accessible to the authentication module
     },
     {
-      provide: APP_INTERCEPTOR,
+      provide: APP_INTERCEPTOR,//logs user activity
       useClass: AuditInterceptor,
     },
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: ThrottlerGuard,
+    // },
   ],
 })
 export class AppModule implements NestModule {
