@@ -1,6 +1,6 @@
 export default {
     credentials: {
-      tenantID: '78820852-55fa-450b-908d-45c0d911e76b',
+      tenantID: process.env.CLICK_TENANT_ID as string,
       clientID: process.env.CLICK_CLIENT_ID as string,
     },
     metadata: {

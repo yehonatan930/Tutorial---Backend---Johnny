@@ -27,7 +27,8 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
   //app.useGlobalFilters(new HttpExceptionFilter)
   app.useGlobalInterceptors(new LoggingInterceptor());
-  app.useGlobalGuards(new AADAuthGaurd(reflector));  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
+  app.useGlobalGuards(
+    new AADAuthGaurd(reflector));  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
   app.useGlobalInterceptors(new ErrorsInterceptor());
   app.useGlobalInterceptors(new HeadersInterceptor());
   app.use(cookieParser());//enable cookis

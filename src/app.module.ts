@@ -10,7 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TemplateModule } from './templates/template.module';
 import { TypeormModule } from './typeorm/typeorm.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AADStrategy } from './guards/authentication/aad.strategy';
 import { HealthModule } from './health/health.module';
@@ -33,7 +33,12 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
   controllers: [AppController], //built-in controller.
   providers: [
     AppService, //buildt-in service
-    AADStrategy, //the strategy for the authentication, this part is responsible for azure authentication.
+    // AADStrategy, //the strategy for the authentication, this part is responsible for azure authentication.
+    {
+      provide: APP_GUARD,
+      useClass: AADStrategy,
+      inject: [ConfigService]
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: AuditInterceptor,
