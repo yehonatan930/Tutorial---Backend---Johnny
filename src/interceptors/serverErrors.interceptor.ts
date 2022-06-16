@@ -16,7 +16,7 @@ export class ErrorsInterceptor implements NestInterceptor {
       .pipe(
         catchError(err =>{
           console.log(err);
-          return throwError(new InternalServerErrorException("something went wrong","the server could not reposnd correctly"));
+          return throwError(()=>new InternalServerErrorException("something went wrong","the server could not reposnd correctly"));
         } ),
       );
   }

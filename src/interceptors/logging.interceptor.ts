@@ -28,7 +28,7 @@ export class LoggingInterceptor implements NestInterceptor {
     return next
       .handle()
       .pipe(
-        tap({ complete: () => console.log(`After... ${Date.now() - now}ms`) }),
+        tap({ complete: () => console.log(`After... ${Date.now() - now}ms`) ,error:(err)=>console.log(err)}),
       ); //the complete field contains the function to be executed after.
   }
 }

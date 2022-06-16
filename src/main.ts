@@ -7,6 +7,7 @@ import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { ErrorsInterceptor } from './interceptors/serverErrors.interceptor';
 import { HeadersInterceptor } from './interceptors/headers/headers.interceptor';
+import { HttpExceptionFilter } from './filters/exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
@@ -24,8 +25,9 @@ async function bootstrap() {
     credentials: true,
   });
   const reflector = app.get(Reflector);
-  app.useGlobalGuards(new AADAuthGaurd(reflector));  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
+  //app.useGlobalFilters(new HttpExceptionFilter)
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalGuards(new AADAuthGaurd(reflector));  //added interceptors which responsible for logging, for more info, look in the readme in interceptors folder
   app.useGlobalInterceptors(new ErrorsInterceptor());
   app.useGlobalInterceptors(new HeadersInterceptor());
   app.use(cookieParser());//enable cookis

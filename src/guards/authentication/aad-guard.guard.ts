@@ -8,6 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class AADAuthGaurd extends AuthGuard('azure-auth-bearer') {
   public constructor(private readonly reflector: Reflector) {
+
     super();
   }
 
@@ -22,4 +23,5 @@ export class AADAuthGaurd extends AuthGuard('azure-auth-bearer') {
     }
     return super.canActivate(context);
   }
+  
 }
