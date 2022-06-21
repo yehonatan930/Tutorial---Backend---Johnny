@@ -62,6 +62,6 @@ export class TemplateService {
    * @param id the id of the requested entity
    */
   async getTemplate(id: string) {
-    return this.templateRepository.find({ id }).then((val) => val[0]);
+    return this.templateRepository.find({ where:{id} }).then((val) => val[0]);
   }
 }

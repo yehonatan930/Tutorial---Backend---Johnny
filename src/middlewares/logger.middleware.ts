@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import * as appInsights from 'applicationinsights';
+import { ConfigService } from '@nestjs/config';
 /**
  * a middleware is an entity that sits between a route, and a function that is connected to that route.
  * in this case, this logger is applied gloabally in the app.module.ts, this simple middleware will print
@@ -8,9 +9,9 @@ import * as appInsights from 'applicationinsights';
  */
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     appInsights
-      .setup() //automatic takes from env when empty
+      .setup(configService.get("APPINSIGHTS_INSTRUMENTATIONKEY")) //automatic takes from env when empty
       .setAutoCollectExceptions(true)
       .setAutoCollectRequests(true)
       .start();
