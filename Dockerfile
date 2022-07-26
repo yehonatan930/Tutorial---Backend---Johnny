@@ -2,7 +2,7 @@ FROM node:13-alpine
 
 WORKDIR /app
 
-COPY ./build ./build
+COPY ./dest ./build
 COPY ./node_modules ./node_modules
 
 CMD [ "node", "./build/index.js" ]
