@@ -7,10 +7,12 @@ import {
   Patch,
   ParseIntPipe,
   UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import * as Joi from 'joi';
 import { JoiValidationPipe } from '../pipes/validationPipe';
 import { TemplateService } from './template.service';
+import { CreateTemplateDto } from './templateDTOs/createTemplateDTO';
 /**
  * this class represents a template controller.
  * a controller is reponsible for receiving incoming requests.
@@ -32,24 +34,16 @@ export class TemplateController {
    * @param TemplateArg2 the request body must be a json with a field named TemplateArg2
    */
   @Post()
-  // @UsePipes(
-  //   // pipes add a layer of validation/transformation to the data coming from the request
-  //   // in this example the pipe validates that the data is in specific structure of the the Template
-  //   // object.
-  //   new JoiValidationPipe(
-  //     Joi.object().keys({
-  //       TemplateArg1: Joi.string().max(20),
-  //       TemplateArg2: Joi.string().max(20),
-  //     }),
-  //   ),
-  // )
+  @UsePipes(new ValidationPipe())
   addTemplate(
-    @Body('TemplateArg1') TemplateArg1: string, //this is how the body parameters are accessed
-    @Body('TemplateArg2') TemplateArg2: string, // similiarly there is @Query() and @Params()
+    @Body() createUserDto: CreateTemplateDto,//this is how the body parameters are accessed
+      // similiarly there is @Query() and @Params() Check CreateTemplateDto for more validation explanation
+      // you can extract specific params, check next function for more details
+      // in my opinion, defining a DTO for validation is better!
   ): any {
     const generatedID = this.templatesService.insertTemplate(
-      TemplateArg1,
-      TemplateArg2,
+      createUserDto.TemplateArg1,
+      createUserDto.TemplateArg2,
     );
     return {
       id: generatedID,
