@@ -17,7 +17,6 @@ import { HealthModule } from './health/health.module';
 import { CsrfCookieMiddleware } from './middlewares/csrf.middleware';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 // import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -26,7 +25,6 @@ import { CategoryModule } from './category/category.module';
     TemplateModule, //simple Template for example.
     AuditModule,
     HealthModule,
-    CategoryModule,
     // ThrottlerModule.forRoot({
     //   ttl: 60,
     //   limit: 10,
