@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { Public } from '../guards/authentication/types/authorizationTypes';
 
 
-@Controller('healthCheck')
+@Controller()
 export class HealthController {
   constructor() {}
 
