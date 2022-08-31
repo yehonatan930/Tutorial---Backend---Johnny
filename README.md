@@ -1,51 +1,42 @@
-## Description
+# Training template - Backend
 
-[Nest](https://docs.nestjs.com/) כל מה שלא ברור בנסט, ניתן לבדוק בתיעוד של נסט.
+## Description
+Initial template for training.
+
+## Initial Run
+Enter the database connection details in the .env file
+
+To create database tables based on your entities, do the following:
+1. Create the entity file
+2. Go to src/utils/data-source.ts, and change 'synchronize' value to 'true'
+3. Run npm start
+
+Don't forget to change 'synchronize' to false after you're done, it's not an option meant for production.
 
 ## Installation
-
-כדי להתקין תלויות
-
 ```bash
 $ npm install
 ```
 
 ## Running the app
-
 ```bash
-# development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
+<br>
 
-## Test
+## Project Structure
+### **models**
+Contains a folder for each entity. 
+Each folder contains:
+*  Controller - DB actions
+*  Entity - DB model
+*  Route - Linking api routes with DB actions
 
-```bash
-# unit tests
-$ npm run test
+### **utils/cors.ts**
+Contains middleware that's supposed to prevent CORS errors
 
-# e2e tests
-$ npm run test:e2e
+### **utils/data-source.ts**
+Contains all the configurations for the DB connection
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+### **index.ts**
+Main file, server setup
