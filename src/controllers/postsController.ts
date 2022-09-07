@@ -7,7 +7,7 @@ import {
 } from "../services/postsService";
 
 const errorHandler = (err: Error, response: Response) => {
-  response.send("An error has occured.");
+  response.send("An error has occured. ");
 };
 
 const all = async (
