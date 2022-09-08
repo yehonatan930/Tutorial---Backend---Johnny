@@ -3,9 +3,11 @@ import * as express from "express";
 import { AppDataSource } from "./data-source";
 import { cors } from "./middlewares/cors";
 import userRouter from "./routers/usersRouter";
+import { initialize } from "./utils/initialServerSetup";
 
 AppDataSource.initialize()
   .then(() => {
+    // initialize();
     console.log("Data Source has been initialized!");
   })
   .catch((err) => {

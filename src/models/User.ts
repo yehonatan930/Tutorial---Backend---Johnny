@@ -9,6 +9,12 @@ export class User {
   @Column()
   avatarSrc: string;
 
-  @OneToMany((type) => Post, (post) => post.userName)
+  @OneToMany((type) => Post, (post) => post.user)
   posts: Post[];
+
+  constructor(name?: string, avaterSrc?: string, posts?: Post[]) {
+    this.name = name;
+    this.avatarSrc = avaterSrc;
+    this.posts = posts;
+  }
 }
