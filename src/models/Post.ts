@@ -23,15 +23,15 @@ export class Post {
   @ManyToOne((type) => User, (user) => user.posts)
   user: User;
 
-  @ManyToMany(() => Post)
+  @ManyToMany(() => User)
   @JoinTable()
-  likes: Post[];
+  likes: User[];
 
   constructor(
     photoSrc?: string,
     createdAt?: Date,
     user?: User,
-    likes?: Post[]
+    likes?: User[]
   ) {
     this.photoSrc = photoSrc;
     this.createdAt = createdAt;
