@@ -60,9 +60,23 @@ const del = async (
   }
 };
 
+const currentLoggedIn = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await getUser({ name: "Jouchan" });
+    response.send(user);
+  } catch (err) {
+    errorHandler(err, response);
+  }
+};
+
 export default {
   all,
   one,
   create,
   del,
+  currentLoggedIn,
 };
