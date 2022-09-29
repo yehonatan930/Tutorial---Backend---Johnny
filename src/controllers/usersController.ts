@@ -7,7 +7,7 @@ import {
 } from "../services/usersService";
 
 const errorHandler = (err: Error, response: Response) => {
-  response.send("An error has occured.");
+  response.send(err);
 };
 
 const all = async (
@@ -67,6 +67,7 @@ const currentLoggedIn = async (
 ) => {
   try {
     const user = await getUser({ name: "Jouchan" });
+    console.log("hello");
     response.send(user);
   } catch (err) {
     errorHandler(err, response);

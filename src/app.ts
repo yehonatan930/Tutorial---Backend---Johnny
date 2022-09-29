@@ -9,10 +9,10 @@ import { initialize } from "./utils/initialServerSetup";
 AppDataSource.initialize()
   .then(() => {
     // initialize();
-    console.log("Data Source has been initialized!");
+    console.log("DB has been connected!");
   })
   .catch((err) => {
-    console.error("Error during Data Source initialization:", err);
+    console.error("Error during DB connecteion:", err);
   });
 
 const app = express();
