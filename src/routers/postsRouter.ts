@@ -1,11 +1,11 @@
 import { Router } from "express";
 import postsController from "../controllers/postsController";
 
-const postRouter = Router();
+const postsRouter = Router();
 
-postRouter.get("/", postsController.all);
-postRouter.get("/:id", postsController.one);
-postRouter.post("/", postsController.create);
-postRouter.delete("/:id", postsController.del);
+postsRouter.get("/", postsController.all);
+postsRouter.get("/:id", postsController.one);
+postsRouter.post("/", postsController.create);
+postsRouter.delete("/:id", postsController.del);
 
-export default postRouter;
+export default postsRouter;
