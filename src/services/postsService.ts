@@ -1,6 +1,7 @@
 import { FindOptionsWhere } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Post } from "../models/Post";
+import { PostDTO } from "../models/PostDTO";
 import { DeleteCriteria } from "../types";
 
 const createPost = async (post: Post) => {
@@ -9,6 +10,12 @@ const createPost = async (post: Post) => {
 
 const getAllPosts = async () => {
   return await AppDataSource.getRepository(Post).find();
+};
+
+const getAllPostCards = async () => {
+  const posts = await AppDataSource.getRepository(Post).find();
+  const cards = posts.map((post: Post) => new PostDTO(post));
+  return cards;
 };
 
 const getPost = async (
@@ -21,4 +28,4 @@ const deletePost = async (criteria: DeleteCriteria<Post>) => {
   return await AppDataSource.getRepository(Post).delete(criteria);
 };
 
-export { createPost, getAllPosts, getPost, deletePost };
+export { createPost, getAllPosts, getPost, deletePost, getAllPostCards };

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export function cors(req: Request, res: Response, next) {
+export function rafi_cors(req: Request, res: Response, next) {
   const corsHeaders = {
     "Access-Control-Allow-Origin": process.env.CLIENT_URL,
     "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE",

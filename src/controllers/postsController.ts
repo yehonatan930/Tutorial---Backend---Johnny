@@ -4,10 +4,11 @@ import {
   deletePost,
   getAllPosts,
   getPost,
+  getAllPostCards,
 } from "../services/postsService";
 
 const errorHandler = (err: Error, response: Response) => {
-  response.send("An error has occured. ");
+  response.send(`n error has occured.\n${err.message}`);
 };
 
 const all = async (
@@ -17,6 +18,21 @@ const all = async (
 ) => {
   try {
     const posts = await getAllPosts();
+    response.send(posts);
+  } catch (err) {
+    errorHandler(err, response);
+  }
+};
+
+const allPostCards = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log("All cards");
+    const posts = await getAllPostCards();
+    console.log("All cards getted");
     response.send(posts);
   } catch (err) {
     errorHandler(err, response);
@@ -65,4 +81,5 @@ export default {
   one,
   create,
   del,
+  allPostCards,
 };

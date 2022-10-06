@@ -67,7 +67,7 @@ const currentLoggedIn = async (
 ) => {
   try {
     const user = await getUser({ name: "Jouchan" });
-    console.log("hello");
+    console.log(user);
     response.send(user);
   } catch (err) {
     errorHandler(err, response);
