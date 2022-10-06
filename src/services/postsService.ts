@@ -13,7 +13,9 @@ const getAllPosts = async () => {
 };
 
 const getAllPostCards = async () => {
-  const posts = await AppDataSource.getRepository(Post).find();
+  const posts = await AppDataSource.getRepository(Post).find({
+    order: { createdAt: "DESC" },
+  });
   const cards = posts.map((post: Post) => new PostDTO(post));
   return cards;
 };
