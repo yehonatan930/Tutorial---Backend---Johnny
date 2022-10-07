@@ -6,6 +6,7 @@ const usersRouter = Router();
 usersRouter.get("/", usersController.all);
 usersRouter.get("/currentLoggedIn", usersController.currentLoggedIn);
 usersRouter.get("/:name", usersController.one);
+usersRouter.get("/:name/posts", usersController.posts);
 usersRouter.post("/", usersController.create);
 usersRouter.delete("/:name", usersController.del);
 

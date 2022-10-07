@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import { User } from "../models/User";
 import {
   createUser,
   deleteUser,
   getAllUsers,
   getUser,
+  getUserPosts,
 } from "../services/usersService";
 
 const errorHandler = (err: Error, response: Response) => {
@@ -31,6 +33,22 @@ const one = async (
   try {
     const user = await getUser({ name: request.params.name });
     response.send(user);
+  } catch (err) {
+    errorHandler(err, response);
+  }
+};
+
+const posts = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    const posts = await getUserPosts({
+      where: { name: request.params.name },
+      relations: { posts: true },
+    });
+    response.send(posts);
   } catch (err) {
     errorHandler(err, response);
   }
@@ -76,6 +94,7 @@ const currentLoggedIn = async (
 export default {
   all,
   one,
+  posts,
   create,
   del,
   currentLoggedIn,
