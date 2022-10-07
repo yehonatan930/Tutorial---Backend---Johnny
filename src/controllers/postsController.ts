@@ -30,9 +30,7 @@ const allPostCards = async (
   next: NextFunction
 ) => {
   try {
-    console.log("All cards");
     const posts = await getAllPostCards();
-    console.log("All cards getted");
     response.send(posts);
   } catch (err) {
     errorHandler(err, response);
