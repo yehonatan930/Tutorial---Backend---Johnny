@@ -1,7 +1,6 @@
 import "dotenv/config";
 import * as express from "express";
 import { AppDataSource } from "./data-source";
-import * as cors from "cors";
 import { rafi_cors } from "./middlewares/cors";
 import usersRouter from "./routers/usersRouter";
 import postsRouter from "./routers/postsRouter";
@@ -19,7 +18,6 @@ AppDataSource.initialize()
 const app = express();
 app.use(express.json());
 app.use(rafi_cors);
-// app.use(cors);
 
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
