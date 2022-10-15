@@ -44,10 +44,7 @@ const posts = async (
   next: NextFunction
 ) => {
   try {
-    const posts = await getUserPosts({
-      where: { name: request.params.name },
-      relations: { posts: true },
-    });
+    const posts = await getUserPosts(request.params.name);
     response.send(posts);
   } catch (err) {
     errorHandler(err, response);

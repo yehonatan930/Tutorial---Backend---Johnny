@@ -19,18 +19,30 @@ const getUser = async (
   return await AppDataSource.getRepository(User).findOneBy(where);
 };
 
-const getUserPosts = async (options: FindOneOptions<User>) => {
-  const user = await AppDataSource.getRepository(User).findOne(options);
+const getUserPosts = async (userName: string) => {
+  const user = await AppDataSource.getRepository(User).findOne({
+    where: { name: userName },
+    relations: { posts: true },
+  });
 
-  const cards = user.posts.map((post: Post) => new PostDTO(post));
+  const cards = user.posts
+    .sort((a: Post, b: Post) => {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    })
+    .map((post: Post) => new PostDTO(post));
+
   return cards;
 
-  // return await AppDataSource.getRepository(User)
+  // const user = await AppDataSource.getRepository(User)
   //   .createQueryBuilder("user")
   //   .leftJoinAndSelect("user.posts", "post")
   //   .where("user.name = :name", { name: userName })
-  //   .printSql()
+  //   .orderBy({ "post.createdAt": "DESC" }) // new to old
   //   .getOne();
+
+  // const cards = user.posts.map((post: Post) => new PostDTO(post));
+
+  // return cards;
 };
 
 const deleteUser = async (criteria: DeleteCriteria<User>) => {
