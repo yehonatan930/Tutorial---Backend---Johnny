@@ -5,6 +5,8 @@ import {
   getAllPosts,
   getPost,
   getAllPostCards,
+  likePost,
+  unLikePost,
 } from "../services/postsService";
 
 const errorHandler = (err: Error, response: Response) => {
@@ -43,7 +45,10 @@ const one = async (
   next: NextFunction
 ) => {
   try {
-    const post = await getPost({ id: Number.parseInt(request.params.id) });
+    const post = await getPost(
+      { id: Number.parseInt(request.params.id) },
+      false
+    );
     response.send(post);
   } catch (err) {
     errorHandler(err, response);
@@ -57,6 +62,40 @@ const create = async (
 ) => {
   try {
     response.send(await createPost(request.body));
+  } catch (err) {
+    errorHandler(err, response);
+  }
+};
+
+const like = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    response.send(
+      await likePost(
+        Number.parseInt(request.params.id),
+        request.params.userName
+      )
+    );
+  } catch (err) {
+    errorHandler(err, response);
+  }
+};
+
+const unLike = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  try {
+    response.send(
+      await unLikePost(
+        Number.parseInt(request.params.id),
+        request.params.userName
+      )
+    );
   } catch (err) {
     errorHandler(err, response);
   }
@@ -80,4 +119,6 @@ export default {
   create,
   del,
   allPostCards,
+  like,
+  unLike,
 };

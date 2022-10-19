@@ -24,7 +24,7 @@ export class Post {
   @ManyToOne((type) => User, (user) => user.posts, { eager: true })
   user: User;
 
-  @ManyToMany(() => User, { eager: true })
+  @ManyToMany((type) => User, (user) => user.likes)
   @JoinTable()
   likes: User[];
 

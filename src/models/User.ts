@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany, ManyToMany } from "typeorm";
 import { Post } from "./Post";
 
 @Entity({ name: "instagramUsers" })
@@ -11,6 +11,9 @@ export class User {
 
   @OneToMany((type) => Post, (post) => post.user)
   posts: Post[];
+
+  @ManyToMany((type) => Post, (post) => post.likes)
+  likes: Post[];
 
   constructor(name?: string, avaterSrc?: string, posts?: Post[]) {
     this.name = name;

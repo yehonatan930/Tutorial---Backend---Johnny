@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../models/User";
 import {
   createUser,
   deleteUser,
   getAllUsers,
   getUser,
   getUserPosts,
+  getCurrentLoggedInUser,
 } from "../services/usersService";
 
 const errorHandler = (err: Error, response: Response) => {
@@ -81,7 +81,7 @@ const currentLoggedIn = async (
   next: NextFunction
 ) => {
   try {
-    const user = await getUser({ name: "Jouchan" });
+    const user = await getCurrentLoggedInUser();
     response.send(user);
   } catch (err) {
     errorHandler(err, response);

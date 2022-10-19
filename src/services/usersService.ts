@@ -19,6 +19,10 @@ const getUser = async (
   return await AppDataSource.getRepository(User).findOneBy(where);
 };
 
+const getCurrentLoggedInUser = async () => {
+  return await getUser({ name: "Jouchan" });
+};
+
 const getUserPosts = async (userName: string) => {
   const user = await AppDataSource.getRepository(User).findOne({
     where: { name: userName },
@@ -29,7 +33,11 @@ const getUserPosts = async (userName: string) => {
     .sort((a: Post, b: Post) => {
       return b.createdAt.getTime() - a.createdAt.getTime();
     })
-    .map((post: Post) => new PostDTO(post));
+    .map((post: Post) => {
+      const card = new PostDTO(post);
+      card.setIsLikedByCurrentUser(post.likes);
+      return card;
+    });
 
   return cards;
 
@@ -49,4 +57,11 @@ const deleteUser = async (criteria: DeleteCriteria<User>) => {
   return await AppDataSource.getRepository(User).delete(criteria);
 };
 
-export { createUser, getAllUsers, getUser, deleteUser, getUserPosts };
+export {
+  createUser,
+  getAllUsers,
+  getUser,
+  deleteUser,
+  getUserPosts,
+  getCurrentLoggedInUser,
+};

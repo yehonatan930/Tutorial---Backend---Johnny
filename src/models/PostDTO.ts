@@ -1,4 +1,6 @@
+import { getCurrentLoggedInUser } from "../services/usersService";
 import { Post } from "./Post";
+import { User } from "./User";
 
 export class PostDTO {
   id: number;
@@ -15,7 +17,15 @@ export class PostDTO {
     this.createdAt = post.createdAt;
     this.avatarSrc = post.user.avatarSrc;
     this.userName = post.user.name;
-    this.likesNum = post.likes.length;
+    this.likesNum = post.likes ? post.likes.length : 0;
     this.isLikedByCurrentUser = false;
+  }
+
+  async setIsLikedByCurrentUser(postLikes: User[]) {
+    const loggedInUser = await getCurrentLoggedInUser();
+
+    this.isLikedByCurrentUser = postLikes
+      .map((user) => user.name)
+      .includes(loggedInUser.name);
   }
 }
