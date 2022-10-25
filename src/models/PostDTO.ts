@@ -25,7 +25,7 @@ export class PostDTO {
     const loggedInUser = await getCurrentLoggedInUser();
 
     this.isLikedByCurrentUser = postLikes
-      .map((user) => user.name)
-      .includes(loggedInUser.name);
+      ? postLikes.map((user) => user.name).includes(loggedInUser.name)
+      : false;
   }
 }
